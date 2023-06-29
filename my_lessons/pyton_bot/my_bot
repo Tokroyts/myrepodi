@@ -1,0 +1,491 @@
+import logging
+from aiogram import Bot, Dispatcher, executor, types
+from aiogram.dispatcher import FSMContext
+from aiogram.contrib.fsm_storage.memory import MemoryStorage
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+import os
+from dotenv import load_dotenv
+#from test import *
+#from random import randint
+
+
+
+
+load_dotenv()
+
+TOKEN=os.getenv('TOKEN')
+
+logging.basicConfig(level=logging.INFO)
+
+bot = Bot(token=TOKEN, parse_mode=types.ParseMode.HTML)
+dp = Dispatcher(bot, storage=MemoryStorage())
+ADMINS = [5888056812]
+
+
+
+
+@dp.message_handler(commands=['start'])
+async def start(message: types.Message):
+    await message.answer(f"Hi I'm geografik bot!\n Print help for help")
+
+@dp.message_handler(commands=['help'])
+async def country_info(message: types.Message):
+    await message.answer(f"For  have some information of country, print command-/country_info 'name of country'\n Example: \n /country_info Poland\n For read some information print command-information about beta testing print beta_testing ")
+
+
+
+
+
+
+@dp.message_handler(commands=['country_info'])
+async def country_info(message: types.Message):
+    await bot.send_message(message.from_user.id, "This is your country")
+    second_wors = message.text.split()[1]
+    country = {
+    "Ukraine":{
+    "Region":"Eastern Europe",
+    "Capital":"Kyiv",
+    "Population":"43.8 million",
+    "Size":"603,700 km²",
+    "Language":"Ukrainian",
+    "Density":"75 per Km2",
+    "Currency":"Ukrainian hryvnia",
+    "National flower":"Sunflower",
+    "National dish":"Borscht",
+    },
+    "Czechia":{
+    "Region":"Central Europe",
+    "Capital":"Prague",
+    "Population":"10,708,981",
+    "Size":"78,865 km²",
+    "Language":"Czech",
+    "Density":"139 per Km2",
+    "Currency":"Czech koruna",
+    "National flower":"Rosa",
+    "National dish":"Vepřo Knedlo Zelo",
+    },
+    "Slovenia":{
+    "Region":"Central Europe",
+    "Capital":"Ljubljana",
+    "Population":"2,078,938",
+    "Size":"20,273 km²",
+    "Language":"Slovenian",
+    "Density":"103 per Km2",
+    "Currency":"Euro",
+    "National flower":"Red Carnation",
+    "National dish":"Veal and buckwheat dumplings",
+    },
+    "Hungary":{
+    "Region":"Central Europe",
+    "Capital":"Budapest",
+    "Population":"9,660,351",
+    "Size":"93,028  km²",
+    "Language":"Hungarian",
+    "Density":"107 per Km2",
+    "Currency":"Hungarian forint",
+    "National flower":"Tulip",
+    "National dish":"Goulash",
+    },
+    "Austria":{
+    "Region":"Europe",
+    "Capital":"Vienna",
+    "Population":"9,006,398",
+    "Size":"82,409 km²",
+    "Language":"German",
+    "Density":"109 per Km2",
+    "Currency":"Euro",
+    "National flower":"The Edelweiss",
+    "National dish":"Tafelspitz",
+    },
+    "Serbia":{
+    "Region":"Southeastern Europe",
+    "Capital":"Belgrade",
+    "Population":"8,737,371",
+    "Size":"88,361 km²",
+    "Language":"Serbian",
+    "Density":"100 per Km2",
+    "Currency":"Serbian dinar",
+    "National flower":"Lily of the valley",
+    "National dish":"Pljeskavica",
+    },
+    "Montenegro":{
+    "Region":"Southeastern Europe",
+    "Capital":"Podgorica",
+    "Population":"628,066",
+    "Size":"13,812 km² ",
+    "Language":"Montenegrin",
+    "Density":"47 per Km2",
+    "Currency":"Euro",
+    "National flower":"Mimosa",
+    "National dish":"Njegusi prosciutto",
+    },
+    "Croatia":{
+    "Region":"Central and Southeast Europe",
+    "Capital":"Zagreb",
+    "Population":"4,105,267",
+    "Size":"56,594 km²",
+    "Language":"Croatian",
+    "Density":"73 per Km2",
+    "Currency":"Croatian kuna",
+    "National flower":"Iris",
+    "National dish":"Zagorski štrukli",
+    },
+    "Bosnia and Herzegovina":{
+    "Region":"Western Balkan Peninsula of Europe",
+    "Capital":"	Sarajevo",
+    "Population":"3,280,819",
+    "Size":"51,209 km²",
+    "Language":"Bosnian, Croatian, Serbian",
+    "Density":"64 per Km2",
+    "Currency":"Bosnia-Herzegovina Convertible Marka",
+    "National flower":"Lilium bosniacum",
+    "National dish":"Cevapi",
+    },
+    "German":{
+    "Region":"Central Europe",
+    "Capital":"Berlin",
+    "Population":"83.2  million",
+    "Size":"302,073 km²",
+    "Language":"German",
+    "Density":"233 per Km2",
+    "Currency":"Euro",
+    "National flower":"Cornflower",
+    "National dish":"Sauerbraten",
+    },
+    "Spain":{
+    "Region":"Iberian Peninsula",
+    "Capital":"Madrid",
+    "Population":"47.42 milionov",
+    "Size":"505,990 km²",
+    "Language":"Spanish",
+    "Density":"233 per Km2",
+    "Currency":"Euro",
+    "National flower":"Cornflower",
+    "National dish":"Sauerbraten",
+    },
+    "Italy":{
+    "Region":"South-central Europe",
+    "Capital":"Rome",
+    "Population":"60 million",
+    "Size":"357,588 km²",
+    "Language":"Italian",
+    "Density":"206 per Km2",
+    "Currency":"Euro",
+    "National flower":"The white lily",
+    "National dish":"Ragù alla Bolognese",
+    },
+    "Poland":{
+    "Region":"Central Europe",
+    "Capital":"Warsaw",
+    "Population":"37.75 million",
+    "Size":"322,575 km²",
+    "Language":"Polish",
+    "Density":"131.2 per Km2",
+    "Currency":"Polsh Zloty",
+    "National flower":"Red poppy or common poppy",
+    "National dish":"Schabowy",
+    },
+    "Pakistan":{
+    "Region":"South Asia",
+    "Capital": "Islamabad",
+    "Population": "220,892,340 (5th Rank)",
+    "Size":"881,912 km² (34th Largest)",
+    "Language":"Urdu, English",
+    "Density":"287 per Km²",
+    "Currency":"Pakistani rupee",
+    "National flower":"Jasmine",
+    "National dish": "Pakistani Nihari"
+    },
+
+    "Slovakia":{
+    "Region":"Central Europe",
+    "Capital":"Bratislava",
+    "Population":"5,459,642 (118th Rank)",
+    "Size":"49,037 km² (130th Largest)",
+    "Language":"Slovak",
+    "Density":"114 per km²",
+    "Currency":"Euro",
+    "National flower":"Rose",
+    "National dish":"Bryndzové Halušky",
+    },
+    "India":{
+    "Region":"South Asia",
+    "Capital":"New Delhi",
+    "Population":"1,380,004,385 (2th Rank)",
+    "Size":"3,287,590 km² (7th Largest)",
+    "Language":"Hindi, English",
+    "Density":"464 per km²",
+    "Currency":"Indian rupee",
+    "National flower":"Lotus",
+    "National dish":"No official national food",
+    },
+    "Sweden":{
+    "Religion":"Northern Europe",
+    "Capital":"Stockholm",
+    "Population":"10,099,265 (91th Rank)",
+    "Size":"450,295 km² (56th Largest)",
+    "Language":"Swedish",
+    "Density":"25 per km²",
+    "Currency":"Swedish krona",
+    "National flower":"Campanula rotundifolia",
+    "National dish":"Meatballs",
+    },
+    "Palestine state":{
+    "Region":"Western Asia",
+    "Capital":"Jerusalem, Ramallah",
+    "Population":"5,101,414 (121th Rank)",
+    "Size":"6,220 km² (170th Largest)",
+    "Language":"Arabic",
+    "Density":"847 per Km²",
+    "Currency":"Israeli Shekel, Egyptian pound, Jordanian dinar, Palestine pound",
+    "National flower":"Faqqua iris",
+    "National dish":"Musakhan",
+    },
+    "Latvia":{
+    "Region" :  "Northeastern Europe",
+    "Capital": "Riga",
+    "Population": "21,886,198",
+    "Size": "64,559 km²",
+    "Language": "Latvian",
+    "Density": "30 per Km2",
+    "Currency": "Euro",
+    "National flower" :"Daisy",
+    "National dish": "Pelēkie zirņi ar speķi ",
+    },
+    "Cabo Verde":{
+    "Region":"Central Atlantic Ocean",
+    "Capital":"Praia",
+    "Population":"555,987",
+    "Size":"4,033 km²",
+    "Language":"Spanish",
+    "Density":"138 per Km2",
+    "Currency":"Cape Verdean escudo",
+    "National flower":"Gerbera daisy",
+    "National dish":"Cachupa",
+    }, 
+   "Tunisia":{
+    "Region":"North Africa",
+    "Capital":"Tunis",
+    "Population":"11,818,619",
+    "Size":"163,610 km²",
+    "Language":"Arabic",
+    "Density":"76 per Km2",
+    "Currency":"Tunisian dinar",
+    "National flower":"Jasmine",
+    "National dish": "Couscous",
+    },
+    "Uzbekistan":{
+    "Region":"Central Asia",
+    "Capital":"Tashkent",
+    "Population":"33,469,203",
+    "Size":"447,400 km² ",
+    "Language":"Uzbek",
+    "Density":"79 per Km2",
+    "Currency":"Uzbekistani so'm",
+    "National flower":"Cotton Flower",
+    "National dish":  "	Plov" ,
+    },
+    "Dominica":{
+    "Region":"Caribbean Sea",
+    "Capital":"Roseau",
+    "Population":"71,986",
+    "Size":"751 km²",
+    "Language":"English",
+    "Density":"96 per Km2",
+    "Currency":"Eastern Caribbean dollar",
+    "National flower":"Sabinea carinalis",
+    "National dish":"Mountain Chicken",
+    },
+    "Japan":{
+    "Region":"East Asia",
+    "Capital":"Tokyo",
+    "Population":"126,476,461",
+    "Size":"377,930 km² ",
+    "Language":"Japanese",
+    "Density":"340.8 per Km2",
+    "Currency":"Japanese yen",
+    "National flower":"Cherry Blossoms",
+    "National dish":"Curry-rice",
+    },
+    "Solomon Islands":{
+    "Region":"South Pacific",
+    "Capital":"Honiara",
+    "Population":"686,884 ",
+    "Size":"28,896 km²",
+    "Language":"English",
+    "Density":"25 per Km2",
+    "Currency":"Solomon Islands dollar",
+    "National flower":"Hibiscus",
+    "National dish":"Poi",
+    }, 
+    "Chile":{
+    "Region":"South America",
+    "Capital":"Santiago",
+    "Population":"19,116,201",
+    "Size":"756,102 km²",
+    "Language":"Spanish",
+    "Density":"26 per Km2",
+    "Currency":"Chilean peso",
+    "National flower":"	Lapageria",
+    "National dish":"Pastel de Choclo",
+    },
+    "Algeria":{
+    "Region":"North Africa",
+    "Capital":"Algiers",
+    "Population":"43,851,044",
+    "Size":"2,381,741 km²",
+    "Language":"Arabic and Tamazight",
+    "Density":"18 per Km2",
+    "Currency":"Algerian dinar",
+    "National flower":"	Iris Tectorum",
+    "National dish":"Couscous",
+    },
+    "South Korea":{
+    "Region":"Southern half of the Korean Peninsula",
+    "Capital":"Seoul",
+    "Population":"51,269,185",
+    "Size":"100,210 km²",
+    "Language":"Korean",
+    "Density":"527 per Km2",
+    "Currency":"South Korean won",
+    "National flower":"Rose of Sharon",
+    "National dish":"Kimchi",
+    },
+    "Botswana":{
+    "Region":"Southern Africa",
+    "Capital":"Gaborone",
+    "Population":"2,351,627",
+    "Size":"582,000 km²",
+    "Language":"English",
+    "Density":"4 per Km2",
+    "Currency":"Botswana pula",
+    "National flower":"Kalahari Devil's Claw",
+    "National dish":"Seswaa",
+    },
+    "Vanuatu":{
+    "Region":"South Pacific Ocean",
+    "Capital":"Port Vila",
+    "Population":"307.145",
+    "Size":"12,189 km²",
+    "Language":"French, Bislama, English",
+    "Density":"25 per Km2",
+    "Currency":"Vanuatu vatu",
+    "National flower":"Hibiscus Plant",
+    "National dish":"Lap lap",
+    },
+    "Congo" "Congo-Brazzaville":{
+    "Region":"Central Africa",
+    "Capital":"Brazzaville",
+    "Population":"5,518,087 (117th Rank)",
+    "Size":"342,000 km² (65th Largest)",
+    "Language":"French",
+    "Density":"16 per Km2",
+    "Currency":"Congolese Franc",
+    "National flower":"Not Declared",
+    "National dish":"Moambé",
+    },
+    "Philippines":{
+    "Region":"Southeast Asia",
+    "Capital":"Manila",
+    "Population":"307.145",
+    "Size":"342,353 km² (64th Largest)",
+    "Language":"Filipino,English",
+    "Density":"368 per Km2",
+    "Currency":"Philippine peso",
+    "National flower":"Sampaguita",
+    "National dish":"Adobo",
+    },
+    "Iceland":{
+    "Region":"North Atlantic Ocean ",
+    "Capital":"Reykjavík",
+    "Population":"341,243 (181st Rank)",
+    "Size":"103,000 km² (108th Largest)",
+    "Language":"Icelandic",
+    "Density":"3 per Km2",
+    "Currency":"Icelandic króna",
+    "National flower":"Mountain Avens",
+    "National dish":"Hákarl",
+    },
+    "Syria" "Siria":{
+    "Region":"Middle East",
+    "Capital":"Damascus",
+    "Population":"17,500,658 (68th Rank)",
+    "Size":"185,180 km² (89th Largest)",
+    "Language":"Arabic",
+    "Density":"95 per Km2",
+    "Currency":"Syrian pound",
+    "National flower":"Jasmine ",
+    "National dish":"Kibbeh bil sanieh",
+    },
+    "Uruguay":{
+    "Region":"South America",
+    "Capital":"Montevideo",
+    "Population":"3,473,730 (134th Rank)",
+    "Size":"181,034 km² (91th Largest)",
+    "Language":"Spanish",
+    "Density":"20 per Km2",
+    "Currency":"Peso Uruguayo",
+    "National flower":"Erythrina cristagalli",
+    "National dish":"The Chivito Sandwich",
+    },
+    "Greece" "Grice" "Gryce":{
+    "Region":"Southeastern Europe",
+    "Capital":"Athens",
+    "Population":"10,423,054 (87th Rank)",
+    "Size":"131,990 km² (97th Largest)",
+    "Language":"Greek",
+    "Density":"81 per Km2",
+    "Currency":"Euro",
+    "National flower":"The Laurel",
+    "National dish":"Moussaka",
+    },
+    "Brunei":{
+    "Region":"South-East Asia",
+    "Capital":"Bandar Seri Begawan",
+    "Population":"437,479 (176th Rank)",
+    "Size":"5,765 km² (171th Largest)",
+    "Language":"Malay",
+    "Density":"83 per Km2",
+    "Currency":"Brunei dollar",
+    "National flower":"Simpor",
+    "National dish":"Ambuyat",
+    },
+
+    } 
+
+    if second_wors in country.keys():
+           name = country[second_wors]["Region"],
+           capital = country[second_wors]["Capital"],
+           population = country[second_wors]["Population"],
+           size = country[second_wors]["Size"],
+           language = country[second_wors]["Language"],
+           desity = country[second_wors]["Density"],
+           national_flower = country[second_wors]["National flower"],
+           national_dish = country[second_wors]["National dish"],
+           await bot.send_message(message.from_user.id, f"Region - {name},\n Capital - {capital},\n Population -  {population},\n Size - {size},\n Language - {language},\n Desity - {desity},\n National dish -  {national_dish},\n National flower {national_flower}")
+    else:
+        await bot.send_message("Country not found!!!")
+ 
+
+
+async def set_default_commands(dp):
+    await bot.set_my_commands(
+        [
+        types.BotCommand("start", "Запустити бота"),
+        types.BotCommand(" country_info", "інформація по країнах"),
+        types.BotCommand("help", "допомога"),
+        ]
+    )
+
+
+
+
+
+async def on_startup(dispatcher):
+    await set_default_commands(dispatcher)
+
+
+
+if __name__ == '__main__':
+    executor.start_polling(dp, on_startup=on_startup)
+
